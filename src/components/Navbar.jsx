@@ -36,7 +36,7 @@ const Navbar = () => {
 
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-4">
-              {['', 'About', 'Projects', 'Contact'].map((item) => (
+              {['', 'About', 'Contact'].map((item) => (
                 <Link
                   key={item || 'Home'}
                   to={`/${item.toLowerCase()}`}
@@ -88,7 +88,7 @@ const Navbar = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`p-2 rounded-md ${isDarkMode ? 'text-primary-dark hover:text-accent-blue' : 'text-primary-light hover:text-primary-light/80'}`}
+              className={`p-2 rounded-md ${isDarkMode ? 'text-primary-dark hover:text-accent-blue' : 'bg-[#d3d9df] text-black hover:bg-[#c0c5cc]'}`}
             >
               {isMenuOpen ? (
                 <svg className="w-6 h-6 transition-all duration-300 ease-in-out" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -104,56 +104,60 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <motion.div
-        ref={menuRef}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: isMenuOpen ? 1 : 0, y: isMenuOpen ? 0 : -20 }}
-        transition={{ duration: 0.3 }}
-        className={`md:hidden fixed top-16 left-0 right-0 ${isDarkMode ? 'bg-hover-dark' : 'bg-hover-light'} shadow-lg`}
-      >
-        <div className="px-2 pt-2 pb-3 space-y-1">
-          {['', 'About', 'Projects', 'Contact'].map((item) => (
-            <Link
-              key={item || 'Home'}
-              to={`/${item.toLowerCase()}`}
-              onClick={() => setIsMenuOpen(false)}
-              className={`relative block px-3 py-2 rounded-md text-base font-medium ${
-                isDarkMode 
-                  ? 'text-primary-dark/70 hover:text-accent-blue' 
-                  : 'text-primary-light/70 hover:text-primary-light'
+      {/* Mobile menu - with fix for invisible clicking */}
+      {/* Only render the menu when it needs to be visible */}
+      {isMenuOpen && (
+        <motion.div
+          ref={menuRef}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+          className={`md:hidden fixed top-16 left-0 right-0 ${isDarkMode ? 'bg-hover-dark' : 'bg-hover-light'} shadow-lg`}
+        >
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            {['', 'About', 'Contact'].map((item) => (
+              <Link
+                key={item || 'Home'}
+                to={`/${item.toLowerCase()}`}
+                onClick={() => setIsMenuOpen(false)}
+                className={`relative block px-3 py-2 rounded-md text-base font-medium ${
+                  isDarkMode 
+                    ? 'text-primary-dark/70 hover:text-accent-blue' 
+                    : 'text-primary-light/70 hover:text-primary-light'
+                }`}
+              >
+                {item || 'Home'}
+                <AnimatePresence>
+                  {location.pathname === `/${item.toLowerCase()}` && (
+                    <motion.div
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent-blue"
+                      initial={{ scaleX: 0, transformOrigin: "left" }}
+                      animate={{ scaleX: 1, transformOrigin: "left" }}
+                      exit={{ scaleX: 0, transformOrigin: "left" }}
+                      transition={{
+                        enter: { duration: 0.3, ease: "easeInOut" },
+                        exit: { duration: 0.15, ease: "easeInOut" }
+                      }}
+                    />
+                  )}
+                </AnimatePresence>
+              </Link>
+            ))}
+            <button
+              onClick={() => {
+                toggleTheme();
+                setIsMenuOpen(false);
+              }}
+              className={`w-full text-left px-3 py-2 rounded-md text-base font-medium ${
+                isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-[#d3d9df] text-black hover:bg-[#c0c5cc]'
               }`}
             >
-              {item || 'Home'}
-              <AnimatePresence>
-                {location.pathname === `/${item.toLowerCase()}` && (
-                  <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent-blue"
-                    initial={{ scaleX: 0, transformOrigin: "left" }}
-                    animate={{ scaleX: 1, transformOrigin: "left" }}
-                    exit={{ scaleX: 0, transformOrigin: "left" }}
-                    transition={{
-                      enter: { duration: 0.3, ease: "easeInOut" },
-                      exit: { duration: 0.15, ease: "easeInOut" }
-                    }}
-                  />
-                )}
-              </AnimatePresence>
-            </Link>
-          ))}
-          <button
-            onClick={() => {
-              toggleTheme();
-              setIsMenuOpen(false);
-            }}
-            className={`w-full text-left px-3 py-2 rounded-md text-base font-medium ${
-              isDarkMode ? 'text-primary-dark hover:text-accent-blue' : 'text-primary-light hover:text-primary-light/80'
-            }`}
-          >
-            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-          </button>
-        </div>
-      </motion.div>
+              {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+            </button>
+          </div>
+        </motion.div>
+      )}
     </nav>
   );
 };

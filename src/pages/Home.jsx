@@ -1,3 +1,4 @@
+import { Box, Typography, Grid} from '@mui/material';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 
@@ -33,19 +34,6 @@ function Home() {
       >
         <h1 className={`text-4xl font-bold mb-4 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Welcome to My Portfolio</h1>
         <p className={`text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>I'm a passionate developer creating amazing web experiences.</p>
-      </motion.section>
-
-      {/* Skills Section */}
-      <motion.section 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className={`rounded-lg ${isDarkMode ? 'bg-[#1a222e]' : 'bg-hover-light'} p-8 shadow-lg`}
-      >
-        <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Skills</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {/* Add your skills here */}
-        </div>
       </motion.section>
 
       {/* Projects Preview Section */}

@@ -9,7 +9,7 @@ import {
   Paper,
   IconButton,
 } from '@mui/material';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
@@ -59,54 +59,84 @@ const Contact = () => {
       >
         <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Send a Message</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <TextField
-            fullWidth
-            label="Name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            margin="normal"
-            required
-            InputLabelProps={{
-              className: isDarkMode ? 'text-gray-300' : 'text-gray-600'
-            }}
-            InputProps={{
-              className: isDarkMode ? 'text-gray-200' : 'text-gray-700'
-            }}
-          />
-          <TextField
-            fullWidth
-            label="Email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            margin="normal"
-            required
-            InputLabelProps={{
-              className: isDarkMode ? 'text-gray-300' : 'text-gray-600'
-            }}
-            InputProps={{
-              className: isDarkMode ? 'text-gray-200' : 'text-gray-700'
-            }}
-          />
-          <TextField
-            fullWidth
-            label="Message"
-            name="message"
-            multiline
-            rows={4}
-            value={formData.message}
-            onChange={handleChange}
-            margin="normal"
-            required
-            InputLabelProps={{
-              className: isDarkMode ? 'text-gray-300' : 'text-gray-600'
-            }}
-            InputProps={{
-              className: isDarkMode ? 'text-gray-200' : 'text-gray-700'
-            }}
-          />
+        <TextField
+          fullWidth
+          label="Name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          margin="normal"
+          required
+          sx={{
+            '& .MuiInputLabel-root': {
+              color: isDarkMode ? '#d1d5db' : '#4b5563' // light gray in dark mode, dark gray in light
+            },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: isDarkMode ? '#374151' : '#d1d5db'
+              },
+              '&:hover fieldset': {
+                borderColor: isDarkMode ? '#4b5563' : '#9ca3af'
+              }
+            },
+            '& .MuiInputBase-input': {
+              color: isDarkMode ? '#e5e7eb' : '#111827' // light text in dark mode, dark in light
+            }
+          }}
+        />
+        <TextField
+          fullWidth
+          label="Email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          margin="normal"
+          required
+          sx={{
+            '& .MuiInputLabel-root': {
+              color: isDarkMode ? '#d1d5db' : '#4b5563' // light gray in dark mode, dark gray in light
+            },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: isDarkMode ? '#374151' : '#d1d5db'
+              },
+              '&:hover fieldset': {
+                borderColor: isDarkMode ? '#4b5563' : '#9ca3af'
+              }
+            },
+            '& .MuiInputBase-input': {
+              color: isDarkMode ? '#e5e7eb' : '#111827' // light text in dark mode, dark in light
+            }
+          }}
+        />
+        <TextField
+          fullWidth
+          label="Message"
+          name="message"
+          multiline
+          rows={4}
+          value={formData.message}
+          onChange={handleChange}
+          margin="normal"
+          required
+          sx={{
+            '& .MuiInputLabel-root': {
+              color: isDarkMode ? '#d1d5db' : '#4b5563' // light gray in dark mode, dark gray in light
+            },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: isDarkMode ? '#374151' : '#d1d5db'
+              },
+              '&:hover fieldset': {
+                borderColor: isDarkMode ? '#4b5563' : '#9ca3af'
+              }
+            },
+            '& .MuiInputBase-input': {
+              color: isDarkMode ? '#e5e7eb' : '#111827' // light text in dark mode, dark in light
+            }
+          }}
+        />
           <Button
             type="submit"
             variant="contained"

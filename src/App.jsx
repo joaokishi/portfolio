@@ -3,7 +3,6 @@ import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import Projects from './pages/Projects';
 import About from './pages/About';
 import Contact from './pages/Contact';
 
@@ -16,7 +15,6 @@ function App() {
           <main className="container mx-auto px-4 py-8 pt-20 pb-32 min-h-[calc(100vh-8rem)] flex flex-col">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/projects" element={<Projects />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
             </Routes>
