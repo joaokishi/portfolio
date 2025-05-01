@@ -9,11 +9,11 @@ import Contact from './pages/Contact';
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-background-light dark:bg-[#212b3b]">
+      <div className="min-h-screen bg-background-light dark:bg-[#212b3b] flex flex-col">
         <Router>
           <Navbar />
-          <main className="container mx-auto px-4 py-8 pt-20 pb-32 min-h-[calc(100vh-8rem)] flex flex-col">
-            <Routes>
+          <main className="container mx-auto px-4 py-8 pt-20 pb-32 flex-grow flex flex-col">
+             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
