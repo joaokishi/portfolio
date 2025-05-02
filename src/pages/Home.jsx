@@ -1,6 +1,7 @@
 import { Typography, Grid} from '@mui/material';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import ProjectSlideshow from '../components/ProjectSlideshow';
 import GradientLine from '../components/GradientLine';
@@ -219,19 +220,21 @@ function Home() {
         </Grid>
 
         <div className="mt-8 text-center flex flex-wrap justify-center gap-4">
-          <motion.a
-            href="/about"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-block px-8 py-3 rounded-md font-medium text-lg shadow-lg btn-shadow"
-            style={{
-              background: 'var(--gradient-purple)',
-              color: 'var(--button-text)',
-              boxShadow: '0 10px 15px -3px var(--button-shadow-color), 0 4px 6px -4px var(--button-shadow-color)'
-            }}
-          >
-            Learn More About Me
-          </motion.a>
+          <Link to="/about">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-block px-8 py-3 rounded-md font-medium text-lg shadow-lg btn-shadow"
+              style={{
+                background: 'var(--gradient-purple)',
+                color: 'var(--button-text)',
+                boxShadow: '0 10px 15px -3px var(--button-shadow-color), 0 4px 6px -4px var(--button-shadow-color)',
+                border: 'none'
+              }}
+            >
+              Learn More About Me
+            </motion.button>
+          </Link>
           <motion.a
             href="#projects"
             onClick={(e) => scrollToSection(e, 'projects')}
