@@ -32,13 +32,13 @@ const Contact = () => {
   };
 
   return (
-    <div className="space-y-8 w-full">
+    <div className="space-y-8 md:space-y-12 relative pt-24 md:pt-28 pb-8 md:pb-12 w-full">
       {/* Contact Frame */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="p-8 rounded-lg w-full"
+        className="p-4 sm:p-6 md:p-8 rounded-lg w-full"
         style={{
           backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.75)' : 'rgba(202, 209, 216, 0.75)',
           backdropFilter: 'blur(8px)',

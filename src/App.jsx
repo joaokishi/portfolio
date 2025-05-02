@@ -48,7 +48,7 @@ function AppBackground() {
           <div className="navbar-line-container">
             <GradientLine className="w-full h-0.5" />
           </div>
-          <main className={`max-w-screen-xl mx-auto px-4 md:px-8 py-8 pt-20 pb-32 flex-grow flex flex-col ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          <main className={`max-w-screen-xl mx-auto px-2 sm:px-4 md:px-8 flex-grow flex flex-col ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
