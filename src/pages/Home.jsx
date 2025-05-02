@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import ProjectSlideshow from '../components/ProjectSlideshow';
+import GradientLine from '../components/GradientLine';
 
 function Home() {
   const { isDarkMode } = useTheme();
@@ -45,6 +46,16 @@ function Home() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [maxSlides, setMaxSlides] = useState(3); // Default to 3 slides
 
+  // Skills data
+  const skills = [
+    { name: 'Python' },
+    { name: 'R' },
+    { name: 'SQL' },
+    { name: 'Data Analysis' },
+    { name: 'Data Visualization' },
+    { name: 'React/Node.js' },
+  ];
+
   // Find the maximum number of slides across all projects
   useEffect(() => {
     const maxImageCount = Math.max(...featuredProjects.map(project => project.images.length));
@@ -72,33 +83,151 @@ function Home() {
     }
   };
 
+  const scrollToSection = (e, sectionId) => {
+    e.preventDefault();
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-12 relative py-12 w-full">
       {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`rounded-lg ${isDarkMode ? 'bg-[#1a222e]' : 'bg-hover-light'} p-8 shadow-lg`}
+        className="flex flex-col items-center justify-center min-h-[80vh] p-8 rounded-lg w-full"
+        style={{
+          backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.75)' : 'rgba(202, 209, 216, 0.75)',
+          backdropFilter: 'blur(8px)',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+        }}
       >
-        <h1 className={`text-4xl font-bold mb-4 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Welcome to My Portfolio</h1>
-        <p className={`text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>I'm a data scientist looking to expand my skills in the field.</p>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="max-w-3xl"
+        >
+          <h1 className={`text-6xl md:text-7xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            Hi, I'm João Kishi
+          </h1>
+          <GradientLine className="mb-8" width="w-64" />
+          <h2 className={`text-2xl md:text-3xl mb-4 whitespace-nowrap ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+            Using Python, R, SQL and Excel to uncover the truths hidden in data.
+          </h2>
+          <motion.a
+            href="#about"
+            onClick={(e) => scrollToSection(e, 'about')}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block px-8 py-3 rounded-md text-white font-medium text-lg mt-4"
+            style={{ background: 'var(--gradient-purple)' }}
+          >
+            See More!
+          </motion.a>
+        </motion.div>
+      </motion.section>
+
+      {/* About Me Section */}
+      <motion.section
+        id="about"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="p-8 rounded-lg w-full"
+        style={{
+          backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.75)' : 'rgba(202, 209, 216, 0.75)',
+          backdropFilter: 'blur(8px)',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+        }}
+      >
+        <h2 className={`text-3xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>About Me</h2>
+        <GradientLine className="mb-4" width="w-20" />
+        <p className={`text-xl mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
+          I'm a data scientist looking to expand my skills in the field. Currently, I'm in search of a new career opportunity,
+          to be able to show my skills and learn new ones. With a background in computer science and a passion for data,
+          I transform complex datasets into actionable insights.
+        </p>
+
+        <h3 className={`text-2xl font-bold mb-2 mt-8 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Skills</h3>
+        <GradientLine className="mb-4" width="w-16" />
+        <Grid container spacing={4}>
+          {skills.map((skill, index) => (
+            <Grid item xs={6} sm={4} md={2} key={skill.name}>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="flex flex-col items-center"
+                whileHover={{ scale: 1.05 }}
+              >
+                <Typography
+                  variant="subtitle1"
+                  className={`text-xl font-bold ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}
+                  align="center"
+                >
+                  {skill.name}
+                </Typography>
+              </motion.div>
+            </Grid>
+          ))}
+        </Grid>
+
+        <div className="mt-8 text-center flex flex-wrap justify-center gap-4">
+          <motion.a
+            href="/about"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block px-8 py-3 rounded-md text-white font-medium text-lg"
+            style={{ background: 'var(--gradient-purple)' }}
+          >
+            Learn More About Me
+          </motion.a>
+          <motion.a
+            href="#projects"
+            onClick={(e) => scrollToSection(e, 'projects')}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block px-8 py-3 rounded-md text-white font-medium text-lg"
+            style={{ background: 'var(--gradient-purple)' }}
+          >
+            View My Projects
+          </motion.a>
+        </div>
       </motion.section>
 
       {/* Projects Preview Section */}
       <motion.section
+        id="projects"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
-        className={`rounded-lg ${isDarkMode ? 'bg-[#1a222e]' : 'bg-hover-light'} p-8 shadow-lg`}
+        className="p-8 rounded-lg w-full"
+        style={{
+          backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.75)' : 'rgba(202, 209, 216, 0.75)',
+          backdropFilter: 'blur(8px)',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+        }}
       >
-        <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Featured Projects</h2>
+        <h2 className={`text-3xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Featured Projects</h2>
+        <GradientLine className="mb-4" width="w-20" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {featuredProjects.map((project, index) => (
             <motion.div
               key={index}
-              className={`rounded-lg ${isDarkMode ? 'bg-[#141c28] hover:bg-[#1c2736]' : 'bg-white hover:bg-gray-50'} shadow transition-all duration-300 flex flex-col`}
+              className="rounded-lg transition-all duration-150 flex flex-col relative overflow-hidden group"
+              style={{
+                backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.9)' : 'rgba(202, 209, 216, 0.9)',
+                backgroundImage: 'linear-gradient(to right, transparent, transparent), var(--gradient-purple)',
+                backgroundOrigin: 'border-box',
+                backgroundClip: 'content-box, border-box',
+                border: '2px solid transparent',
+              }}
               whileHover={{ y: -5 }}
+              transition={{ duration: 0.15 }}
             >
               {/* Project Slideshow */}
               <div className="p-4 pb-0">
@@ -111,19 +240,31 @@ function Home() {
               </div>
 
               <div className="p-4 flex flex-col flex-grow">
-                <h3 className={`text-xl font-bold mb-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>{project.title}</h3>
-                <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'} mb-3 flex-grow`}>{project.description}</p>
-
                 <a
                   href={project.link}
-                  className={`inline-block px-4 py-2 rounded-md text-center ${
-                    isDarkMode
-                      ? 'bg-accent-blue text-white hover:bg-blue-600'
-                      : 'bg-accent-blue text-white hover:bg-blue-600'
-                  } transition-colors duration-300`}
+                  className={`group`}
                 >
-                  View Project
+                  <h3
+                    className="text-2xl font-bold mb-2 transition-colors duration-150 inline-flex items-center"
+                    style={{
+                      color: isDarkMode ? 'white' : '#111',
+                      ':hover': { color: 'var(--accent-purple-end)' }
+                    }}
+
+                  >
+                    {project.title}
+                    <svg
+                      className="ml-1 w-4 h-4 opacity-0 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-1 transition-all duration-150"
+                      style={{ color: 'var(--accent-purple-end)' }}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </h3>
                 </a>
+                <p className={`flex-grow text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{project.description}</p>
               </div>
             </motion.div>
           ))}

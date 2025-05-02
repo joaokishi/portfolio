@@ -1,18 +1,12 @@
-import { Box, Typography, Grid} from '@mui/material';
+import { Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import GradientLine from '../components/GradientLine';
 
 const About = () => {
   const { isDarkMode } = useTheme();
 
-  const skills = [
-    { name: 'Python' },
-    { name: 'R' },
-    { name: 'SQL' },
-    { name: 'Data Analysis' },
-    { name: 'Data Visualization' },
-    { name: 'React/Node.js' },
-  ];
+  // Skills moved to Home page
 
   const education = [
     {
@@ -23,7 +17,7 @@ const About = () => {
     {
       title: 'System Analysis and Development',
       institution: 'Instituto Federal do Paraná - Campus Londrina',
-      period: '2023 - present'   
+      period: '2023 - present'
     },
   ];
 
@@ -43,109 +37,103 @@ const About = () => {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full">
       {/* About Me Section */}
-      <motion.section 
+      <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`rounded-lg ${isDarkMode ? 'bg-[#1a222e]' : 'bg-hover-light'} p-8 shadow-lg`}
+        className="p-8 rounded-lg w-full"
+        style={{
+          backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.75)' : 'rgba(202, 209, 216, 0.75)',
+          backdropFilter: 'blur(8px)',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+        }}
       >
-        <h1 className={`text-4xl font-bold mb-4 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>About Me</h1>
-        <p className={`text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>I'm a data scientist looking to expand my skills in the field. Currently, I'm in search of a new career opportunity, to be able to show my skills and learn new ones.</p>
+        <h1 className={`text-5xl font-bold mb-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>About Me</h1>
+        <GradientLine className="mb-6" width="w-24" />
+        <p className={`text-xl ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
+          I'm a data scientist looking to expand my skills in the field. Currently, I'm in search of a new career opportunity,
+          to be able to show my skills and learn new ones. With a background in computer science and a passion for data,
+          I transform complex datasets into actionable insights.
+        </p>
       </motion.section>
 
-      {/* Skills Section */}
-      <motion.section 
+      {/* Education & Courses Section */}
+      <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className={`rounded-lg ${isDarkMode ? 'bg-[#1a222e]' : 'bg-hover-light'} p-8 shadow-lg`}
+        className="p-8 rounded-lg w-full"
+        style={{
+          backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.75)' : 'rgba(202, 209, 216, 0.75)',
+          backdropFilter: 'blur(8px)',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+        }}
       >
-        <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Skills</h2>
-        <Grid container spacing={4}>
-          {skills.map((skill, index) => (
-            <Grid item xs={6} sm={4} md={3} key={skill.name}>
+        <div className="mb-10">
+          <h2 className={`text-3xl font-bold mb-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>Education</h2>
+          <GradientLine className="mb-6" width="w-20" />
+          <div className="space-y-6">
+            {education.map((edu, index) => (
               <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex flex-col items-center"
-              >
-                <Typography
-                  variant="subtitle1"
-                  className={`${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}
-                  align="center"
-                >
-                  {skill.name}
-                </Typography>
-              </motion.div>
-            </Grid>
-          ))}
-        </Grid>
-      </motion.section>
-
-      {/* Education Section */}
-      <motion.section 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        className={`rounded-lg ${isDarkMode ? 'bg-[#1a222e]' : 'bg-hover-light'} p-8 shadow-lg`}
-      >
-        <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Education</h2>
-        <div className="space-y-6">
-          {education.map((edu, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-            >
-              <Typography variant="h6" component="h3" className={`${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
-                {edu.title}
-              </Typography>
-              <Typography variant="subtitle1" className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                {edu.institution} | {edu.period}
-              </Typography>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* Courses Section */}
-      <motion.section 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
-        className={`rounded-lg ${isDarkMode ? 'bg-[#1a222e]' : 'bg-hover-light'} p-8 shadow-lg`}
-      >
-        <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Courses</h2>
-        <Grid container spacing={4}>
-          {courses.map((course, index) => (
-            <Grid item xs={12} key={index}>
-              <motion.div
+                key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
+                className="p-4 rounded-lg"
+                style={{
+                  backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.5)' : 'rgba(255, 255, 255, 0.3)',
+                  backdropFilter: 'blur(4px)',
+                  border: '1px solid',
+                  borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                }}
               >
-                <Box sx={{ mb: 2 }}>
-                  <Typography variant="h6" component="h3" className={`${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
-                    {course.title}
-                  </Typography>
-                  <Typography variant="subtitle1" className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                    {course.company} | {course.period}
-                  </Typography>
-                  <Typography variant="body1" className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`} sx={{ mt: 1 }}>
-                    {course.description}
-                  </Typography>
-                </Box>
+                <Typography variant="h6" component="h3" className={`text-xl font-bold ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>
+                  {edu.title}
+                </Typography>
+                <Typography variant="subtitle1" className={`text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
+                  {edu.institution} | {edu.period}
+                </Typography>
               </motion.div>
-            </Grid>
-          ))}
-        </Grid>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h2 className={`text-3xl font-bold mb-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>Courses</h2>
+          <GradientLine className="mb-6" width="w-16" />
+          <div className="space-y-6">
+            {courses.map((course, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                className="p-4 rounded-lg w-full"
+                style={{
+                  backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.5)' : 'rgba(255, 255, 255, 0.3)',
+                  backdropFilter: 'blur(4px)',
+                  border: '1px solid',
+                  borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                }}
+              >
+                <Typography variant="h6" component="h3" className={`text-xl font-bold ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>
+                  {course.title}
+                </Typography>
+                <Typography variant="subtitle1" className={`text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
+                  {course.company} | {course.period}
+                </Typography>
+                <Typography variant="body1" className={`text-base mt-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
+                  {course.description}
+                </Typography>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </motion.section>
     </div>
   );
 };
 
-export default About; 
+export default About;

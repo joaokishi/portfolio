@@ -15,11 +15,11 @@
   .btn-primary {
     @apply bg-accent-blue text-primary px-4 py-2 rounded-md hover:bg-hover transition-colors;
   }
-  
+
   .btn-secondary {
     @apply bg-accent-orange text-primary px-4 py-2 rounded-md hover:bg-hover transition-colors;
   }
-  
+
   .card {
     @apply bg-hover rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow;
   }
@@ -59,13 +59,35 @@ body.dark {
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 
+  /* Base colors */
   --background-light: #f9fafb;
   --background-dark: #121821;
   --primary-light: #374151;
   --primary-dark: #e5e7eb;
+
+  /* UI colors */
   --hover-light: #f3f4f6;
   --hover-dark: #2d2d2d;
+  --card-bg-light: #ffffff;
+  --card-bg-dark: #141c28;
+  --card-bg-hover-light: #f9f9f9;
+  --card-bg-hover-dark: #1c2736;
+  --section-bg-light: #f3f4f6;
+  --section-bg-dark: #1a222e;
+
+  /* Text colors */
+  --text-heading-light: #1f2937;
+  --text-heading-dark: #e5e7eb;
+  --text-body-light: #4b5563;
+  --text-body-dark: #9ca3af;
+
+  /* Accent colors */
   --accent-blue: #3b82f6;
+  --accent-purple-start: #5f006b;
+  --accent-purple-end: #f080ff;
+
+  /* Gradients */
+  --gradient-purple: linear-gradient(45deg, var(--accent-purple-start) 0%, var(--accent-purple-end) 100%);
 }
 
 a {
@@ -144,4 +166,26 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+/* Footer container */
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  line-height: 0; /* Removes space between gradient line and footer */
+}
+
+.footer-container footer {
+  line-height: normal; /* Restore normal line height for footer content */
+}
+
+/* Navbar line container */
+.navbar-line-container {
+  position: fixed;
+  top: 64px; /* Height of the navbar */
+  left: 0;
+  right: 0;
+  z-index: 40; /* Below navbar (z-50) but above other content */
+  line-height: 0;
 }

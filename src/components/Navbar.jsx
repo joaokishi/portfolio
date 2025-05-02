@@ -12,7 +12,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target) && 
+      if (menuRef.current && !menuRef.current.contains(event.target) &&
           buttonRef.current && !buttonRef.current.contains(event.target)) {
         setIsMenuOpen(false);
       }
@@ -23,13 +23,17 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 ${isDarkMode ? 'bg-[#121821]' : 'bg-hover-light'} transition-colors duration-300`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="fixed top-0 left-0 right-0 z-50 transition-colors duration-300" style={{
+      backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.85)' : 'rgba(202, 209, 216, 0.85)',
+      backdropFilter: 'blur(8px)',
+      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+    }}>
+      <div className="max-w-screen-xl mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0">
               <span className={`text-xl font-bold ${isDarkMode ? 'text-primary-dark' : 'text-primary-light'}`}>
-                João Kishi	
+                João Kishi
               </span>
             </Link>
           </div>
@@ -40,17 +44,19 @@ const Navbar = () => {
                 <Link
                   key={item || 'Home'}
                   to={`/${item.toLowerCase()}`}
-                  className={`relative px-3 py-2 rounded-md text-sm font-medium ${
-                    isDarkMode 
-                      ? 'text-primary-dark/70 hover:text-accent-blue' 
-                      : 'text-primary-light/70 hover:text-primary-light'
-                  }`}
+                  className="relative px-3 py-2 rounded-md text-base font-medium"
+                  style={{
+                    color: isDarkMode ? 'var(--primary-dark)' : 'var(--primary-light)',
+                    opacity: 0.7,
+                    ':hover': { color: 'var(--accent-purple-end)', opacity: 1 }
+                  }}
                 >
                   {item || 'Home'}
                   <AnimatePresence>
                     {location.pathname === `/${item.toLowerCase()}` && (
                       <motion.div
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent-blue"
+                        className="absolute bottom-0 left-0 right-0 h-0.5"
+                        style={{ background: 'var(--gradient-purple)' }}
                         initial={{ scaleX: 0, transformOrigin: "left" }}
                         animate={{ scaleX: 1, transformOrigin: "left" }}
                         exit={{ scaleX: 0, transformOrigin: "left" }}
@@ -67,7 +73,15 @@ const Navbar = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={toggleTheme}
-                className={`p-2 rounded-full ${isDarkMode ? 'bg-white text-primary-light hover:bg-white/80' : 'text-primary-dark hover:text-accent-blue'}`}
+                className="p-2 rounded-full"
+                style={{
+                  backgroundColor: isDarkMode ? 'white' : 'black',
+                  color: isDarkMode ? 'var(--primary-light)' : 'white',
+                  ':hover': {
+                    backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                    color: 'white'
+                  }
+                }}
               >
                 {isDarkMode ? (
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -88,7 +102,15 @@ const Navbar = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`p-2 rounded-md ${isDarkMode ? 'text-primary-dark hover:text-accent-blue' : 'bg-[#d3d9df] text-black hover:bg-[#c0c5cc]'}`}
+              className="p-2 rounded-md"
+              style={{
+                backgroundColor: isDarkMode ? 'transparent' : 'var(--hover-light)',
+                color: isDarkMode ? 'var(--primary-dark)' : 'black',
+                ':hover': {
+                  backgroundColor: isDarkMode ? 'transparent' : '#c0c5cc',
+                  color: isDarkMode ? 'var(--accent-purple-end)' : 'black'
+                }
+              }}
             >
               {isMenuOpen ? (
                 <svg className="w-6 h-6 transition-all duration-300 ease-in-out" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -113,25 +135,31 @@ const Navbar = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className={`md:hidden fixed top-16 left-0 right-0 ${isDarkMode ? 'bg-hover-dark' : 'bg-hover-light'} shadow-lg`}
+          className={`md:hidden fixed top-16 left-0 right-0 shadow-lg`}
+          style={{
+            backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.85)' : 'rgba(202, 209, 216, 0.85)',
+            backdropFilter: 'blur(8px)'
+          }}
         >
-          <div className="px-2 pt-2 pb-3 space-y-1">
+          <div className="px-4 md:px-8 pt-2 pb-3 space-y-1">
             {['', 'About', 'Contact'].map((item) => (
               <Link
                 key={item || 'Home'}
                 to={`/${item.toLowerCase()}`}
                 onClick={() => setIsMenuOpen(false)}
-                className={`relative block px-3 py-2 rounded-md text-base font-medium ${
-                  isDarkMode 
-                    ? 'text-primary-dark/70 hover:text-accent-blue' 
-                    : 'text-primary-light/70 hover:text-primary-light'
-                }`}
+                className="relative block px-3 py-2 rounded-md text-base font-medium"
+                style={{
+                  color: isDarkMode ? 'var(--primary-dark)' : 'var(--primary-light)',
+                  opacity: 0.7,
+                  ':hover': { color: 'var(--accent-purple-end)', opacity: 1 }
+                }}
               >
                 {item || 'Home'}
                 <AnimatePresence>
                   {location.pathname === `/${item.toLowerCase()}` && (
                     <motion.div
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent-blue"
+                      className="absolute bottom-0 left-0 right-0 h-0.5"
+                      style={{ background: 'var(--gradient-purple)' }}
                       initial={{ scaleX: 0, transformOrigin: "left" }}
                       animate={{ scaleX: 1, transformOrigin: "left" }}
                       exit={{ scaleX: 0, transformOrigin: "left" }}
@@ -149,9 +177,14 @@ const Navbar = () => {
                 toggleTheme();
                 setIsMenuOpen(false);
               }}
-              className={`w-full text-left px-3 py-2 rounded-md text-base font-medium ${
-                isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-[#d3d9df] text-black hover:bg-[#c0c5cc]'
-              }`}
+              className="w-full text-left px-3 py-2 rounded-md text-base font-medium"
+              style={{
+                backgroundColor: isDarkMode ? 'white' : 'black',
+                color: isDarkMode ? 'var(--primary-light)' : 'white',
+                ':hover': {
+                  backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)'
+                }
+              }}
             >
               {isDarkMode ? 'Light Mode' : 'Dark Mode'}
             </button>

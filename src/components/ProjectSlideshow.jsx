@@ -55,20 +55,20 @@ const ProjectSlideshow = ({ images, currentIndex, onPrevious, onNext }) => {
       </button>
 
       {/* Dots indicator */}
-      <div className="absolute bottom-2 left-0 right-0 flex justify-center space-x-3 z-20">
+      <div className="absolute bottom-3 left-0 right-0 flex justify-center space-x-4 z-20">
         {images.map((_, index) => (
           <button
             key={index}
             onClick={() => onNext(index)}
-            className={`w-3 h-3 rounded-full border ${
+            className={`w-2.5 h-2.5 rounded-full border ${
               currentIndex === index
                 ? (isDarkMode
-                    ? 'bg-white border-white'
-                    : 'bg-gray-800 border-gray-800')
+                    ? 'bg-white border-white scale-125'
+                    : 'bg-gray-800 border-gray-800 scale-125')
                 : (isDarkMode
-                    ? 'bg-transparent border-white'
-                    : 'bg-transparent border-gray-800')
-            } focus:outline-none transition-all duration-300`}
+                    ? 'bg-transparent border-white opacity-70 hover:opacity-100'
+                    : 'bg-transparent border-gray-800 opacity-70 hover:opacity-100')
+            } focus:outline-none transition-all duration-300 transform hover:scale-110`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}

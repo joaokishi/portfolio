@@ -18,7 +18,9 @@ module.exports = {
         },
         accent: {
           blue: '#58A6FF',
-          orange: '#FF6F61'
+          orange: '#FF6F61',
+          purple: '#150024',
+          pink: '#680075'
         },
         hover: {
           light: '#E9ECEF',
@@ -28,4 +30,4 @@ module.exports = {
     },
   },
   plugins: [],
-} 
+}
