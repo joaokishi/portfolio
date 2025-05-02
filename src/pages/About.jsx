@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import GradientLine from '../components/GradientLine';
+import { GradientLine } from '../components/ui';
 
 const About = () => {
   const { isDarkMode } = useTheme();

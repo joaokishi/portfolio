@@ -1,7 +1,7 @@
 import { useTheme } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import GradientLine from './GradientLine';
+import { GradientLine } from './ui';
 
 const Footer = () => {
   const { isDarkMode } = useTheme();
@@ -32,7 +32,7 @@ const Footer = () => {
                 whileTap={{ scale: 0.9 }}
                 className="w-6 h-6"
                 style={{
-                  color: isDarkMode ? 'var(--primary-dark)' : 'var(--primary-light)',
+                  color: isDarkMode ? 'var(--primary-dark)' : '#000000',
                   ':hover': { color: 'var(--accent-purple-end)' }
                 }}
                 fill="currentColor"
@@ -52,7 +52,7 @@ const Footer = () => {
                 whileTap={{ scale: 0.9 }}
                 className="w-6 h-6"
                 style={{
-                  color: isDarkMode ? 'var(--primary-dark)' : 'var(--primary-light)',
+                  color: isDarkMode ? 'var(--primary-dark)' : '#000000',
                   ':hover': { color: 'var(--accent-purple-end)' }
                 }}
                 fill="currentColor"
@@ -70,7 +70,7 @@ const Footer = () => {
                 whileTap={{ scale: 0.9 }}
                 className="w-8 h-8"
                 style={{
-                  color: isDarkMode ? 'var(--primary-dark)' : 'var(--primary-light)',
+                  color: isDarkMode ? 'var(--primary-dark)' : '#000000',
                   ':hover': { color: 'var(--accent-purple-end)' }
                 }}
                 fill="none"

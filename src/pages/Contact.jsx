@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import GradientLine from '../components/GradientLine';
+import { GradientLine } from '../components/ui';
 
 const Contact = () => {
   const { isDarkMode } = useTheme();
