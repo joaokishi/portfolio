@@ -10,7 +10,7 @@ const skills = [
   { name: 'SQL' },
   { name: 'Data Analysis' },
   { name: 'Data Visualization' },
-  { name: 'React/Node.js' },
+  { name: 'Machine Learning' },
 ];
 
 const AboutSection = ({ scrollToSection }) => {
@@ -97,3 +97,4 @@ const AboutSection = ({ scrollToSection }) => {
 };
 
 export default AboutSection;
+

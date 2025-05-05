@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
-import { GradientLine } from '../../components/ui';
-import { useMemo } from 'react';
+import { GradientLine } from '../../components/ui';import { memo} from 'react';
+import { useMemo} from 'react';
 
 const WelcomeSection = ({ scrollToSection }) => {
-  const { isDarkMode } = useTheme();
+  const { isDarkMode } = useTheme(); // Getting the theme
 
   // Memoize animation values to prevent recalculations
   const buttonAnimation = useMemo(() => ({
@@ -34,7 +34,7 @@ const WelcomeSection = ({ scrollToSection }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="flex flex-col items-center justify-center min-h-[70vh] p-4 sm:p-6 md:p-8 rounded-lg w-full"
+      className="flex flex-col items-center justify-center min-h-[85vh] p-4 sm:p-6 md:p-8 rounded-lg w-full"
       style={{
         backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.75)' : 'rgba(202, 209, 216, 0.75)',
         backdropFilter: 'blur(8px)',

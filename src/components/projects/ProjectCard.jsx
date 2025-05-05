@@ -1,4 +1,4 @@
-import { useState, memo, useMemo } from 'react';
+import { memo, lazy, Suspense, forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import {
   Card,
@@ -11,67 +11,50 @@ import {
 import { useTheme } from '../../context/ThemeContext';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-// Memoize the component to prevent unnecessary re-renders
-const ProjectCard = memo(({ project, currentIndex }) => {
-  const { isDarkMode } = useTheme();
-  const [hovered, setHovered] = useState(false);
+// Lazy load the image
+const LazyCardMedia = lazy(() => import('./LazyCardMedia')); // Lazy load the LazyCardMedia component
+
+// ProjectCard component, wrapped in forwardRef for ref access
+const ProjectCard = forwardRef(({ project }, ref) => {
+  const { isDarkMode } = useTheme(); // Get the current theme mode
+  //Card style
+  const cardStyle = {
+    backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.9)' : 'rgba(255, 255, 255, 0.9)',
+    backdropFilter: 'blur(8px)',
+    borderRadius: '12px',
+    overflow: 'hidden',
+    transition: 'all 0.3s ease',
+    height: '100%',
+     border: '1px solid',
+    borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+     boxShadow: '0 10px 15px -3px rgba(95, 0, 107, 0.3), 0 4px 6px -4px rgba(95, 0, 107, 0.2)'
+  };
 
   return (
-    <motion.div
-      whileHover={{ y: -8 }}
-      transition={{ duration: 0.2 }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="h-full"
-    >
+    <div className="h-full" ref={ref}>
       <Card
         className="h-full flex flex-col shadow-lg"
-        sx={{
-          backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.9)' : 'rgba(255, 255, 255, 0.9)',
-          backdropFilter: 'blur(8px)',
-          borderRadius: '12px',
-          overflow: 'hidden',
-          transition: 'all 0.3s ease',
-          height: '100%',
-          border: '1px solid',
-          borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
-          boxShadow: hovered
-            ? '0 15px 25px -5px rgba(95, 0, 107, 0.5), 0 10px 10px -5px rgba(95, 0, 107, 0.3)'
-            : '0 10px 15px -3px rgba(95, 0, 107, 0.3), 0 4px 6px -4px rgba(95, 0, 107, 0.2)'
-        }}
+        sx={cardStyle}
       >
-        <CardMedia
-          component="img"
-          height="400"
-          image={project.images[currentIndex % project.images.length]}
-          alt={project.title}
-          sx={{
-            height: 400,
-            objectFit: 'cover',
-            borderBottom: '2px solid',
-            borderImage: 'var(--gradient-purple) 1'
-          }}
-        />
-        <CardContent sx={{ flexGrow: 0, p: 1.5, pb: 0 }}>
-          <Typography
-            variant="h5"
-            component="div"
+      <Suspense fallback={<div className="h-[400px] w-full bg-gray-200 animate-pulse"></div>}>
+        <LazyCardMedia
+            component="img"
+            src={project.images[0]}
+            alt={project.title}
             sx={{
-              fontWeight: 'bold',
-              color: isDarkMode ? '#fff' : '#111',
-              mb: 0.5,
-              fontSize: '1.5rem'
+              height: 400,
+              objectFit: 'cover',
+              borderBottom: '2px solid',
+              borderImage: 'var(--gradient-purple) 1'
             }}
-          >
+        />
+      </Suspense>
+        <CardContent sx={{ flexGrow: 0, p: 1.5, pb: 0 }}>
+          <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', color: isDarkMode ? '#fff' : '#111', mb: 0.5, fontSize: '1.5rem' }}>
             {project.title}
           </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{
-              color: isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)',
-              mb: 0.5,
-              fontSize: '1rem',
+          <Typography variant="body2" color="text.secondary" sx={{
+              color: isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)', mb: 0.5, fontSize: '1rem',
               lineHeight: 1.3,
               display: '-webkit-box',
               WebkitLineClamp: 2,
@@ -88,10 +71,10 @@ const ProjectCard = memo(({ project, currentIndex }) => {
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            endIcon={<ArrowForwardIcon />}
+            endIcon={<ArrowForwardIcon />} // Arrow icon for the button
             sx={{
               background: 'var(--gradient-purple)',
-              color: 'var(--button-text)',
+              color: 'var(--button-text)', // Button text color
               fontWeight: 'medium',
               '&:hover': {
                 background: 'var(--gradient-purple)',
@@ -111,8 +94,10 @@ const ProjectCard = memo(({ project, currentIndex }) => {
           </Button>
         </CardActions>
       </Card>
-    </motion.div>
-  );
-});
+    </div>
+  );}); 
 
-export default ProjectCard;
+ProjectCard.displayName = 'ProjectCard';
+
+export default memo(ProjectCard, () => true);
+ 

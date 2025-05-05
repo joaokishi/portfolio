@@ -1,8 +1,8 @@
-import { useTheme } from '../context/ThemeContext';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { GradientLine } from './ui';
-
+import { useTheme } from '../context/ThemeContext'
+import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import { GradientLine } from './ui'
+import { memo } from 'react'
 const Footer = () => {
   const { isDarkMode } = useTheme();
 
@@ -93,4 +93,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default memo(Footer);

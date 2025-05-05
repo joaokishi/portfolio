@@ -12,7 +12,8 @@ import { GradientLine } from '../components/ui';
 const Contact = () => {
   const { isDarkMode } = useTheme();
   const [formData, setFormData] = useState({
-    name: '',
+    
+      name: '',
     email: '',
     message: '',
   });
@@ -25,10 +26,41 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  // State to handle the submit status
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+    setSubmitStatus('loading');
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/joaopedroakira36@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        // Clear the form fields
+        setFormData({
+          name: '',
+          email: '',
+          message: '',
+        });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+    }
+    setTimeout(() => {
+      setSubmitStatus(null);
+    }, 5000);
+
   };
 
   return (
@@ -52,8 +84,12 @@ const Contact = () => {
         <div className="mb-10">
           <h2 className={`text-3xl font-bold mb-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>Send a Message</h2>
           <GradientLine className="mb-6" width="w-24" />
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form
+            className="space-y-4"
+            onSubmit={handleSubmit}
+            >
             <TextField
+              
               fullWidth
               label="Name"
               name="name"
@@ -131,14 +167,20 @@ const Contact = () => {
                 }
               }}
             />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              size="large"
-              style={{ fontSize: '1.1rem' }}
-              sx={{ mt: 2 }}
-            >
+            {submitStatus === 'loading' && (
+              <Typography variant="body2" className={`text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
+                Sending...
+              </Typography>
+            )}
+            {submitStatus === 'success' && (
+              <Typography variant="body2" className={`text-lg text-green-500`}>Message sent successfully!</Typography>
+            )}
+            {submitStatus === 'error' && (
+              <Typography variant="body2" className={`text-lg text-red-500`}>Error sending message. Please try again later.</Typography>
+            )}
+            <Button type="submit" variant="contained" color="primary" size="large" style={{ fontSize: '1.1rem' }} sx={{ mt: 2 }}
+            disabled={submitStatus === 'loading'} // Disable while loading
+          >
               Send Message
             </Button>
           </form>
@@ -155,8 +197,6 @@ const Contact = () => {
               className={isDarkMode ? 'text-gray-200 hover:text-[#f080ff]' : 'text-gray-700 hover:text-[#f080ff]'}
             >
               <motion.svg
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
                 className="w-6 h-6"
                 style={{ width: '24px', height: '24px' }}
                 fill="currentColor"
@@ -172,8 +212,6 @@ const Contact = () => {
               className={isDarkMode ? 'text-gray-200 hover:text-[#f080ff]' : 'text-gray-700 hover:text-[#f080ff]'}
             >
               <motion.svg
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
                 className="w-6 h-6"
                 style={{ width: '24px', height: '24px' }}
                 fill="currentColor"
@@ -188,8 +226,6 @@ const Contact = () => {
               className={isDarkMode ? 'text-gray-200 hover:text-[#f080ff]' : 'text-gray-700 hover:text-[#f080ff]'}
             >
               <motion.svg
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
                 className="w-8 h-8"
                 style={{ width: '32px', height: '32px' }}
                 fill="none"

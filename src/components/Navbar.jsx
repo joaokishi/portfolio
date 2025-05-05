@@ -1,7 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+
 
 const Navbar = () => {
   const location = useLocation();
@@ -45,10 +46,10 @@ const Navbar = () => {
                   key={item || 'Home'}
                   to={`/${item.toLowerCase()}`}
                   className="relative px-3 py-2 rounded-md text-base font-medium"
-                  style={{
-                    color: isDarkMode ? 'var(--primary-dark)' : 'var(--primary-light)',
-                    opacity: 0.7,
-                    ':hover': { color: 'var(--accent-purple-end)', opacity: 1 }
+                  style={{                    
+                    color: isDarkMode ? 'var(--text-light)' : 'black',
+                    opacity: isDarkMode ? 0.85 : 0.9,
+                    ':hover': { color: isDarkMode ? 'var(--text-light)' : 'var(--text-dark)', opacity: 1 }
                   }}
                 >
                   {item || 'Home'}
@@ -70,16 +71,14 @@ const Navbar = () => {
                 </Link>
               ))}
               <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
                 onClick={toggleTheme}
                 className="p-2 rounded-full"
                 style={{
-                  backgroundColor: isDarkMode ? 'white' : 'black',
-                  color: isDarkMode ? 'var(--primary-light)' : 'white',
+                  backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                  color: isDarkMode ? 'var(--text-dark)' : 'white',
                   ':hover': {
-                    backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
-                    color: 'white'
+                    backgroundColor: isDarkMode ? 'white' : 'black',
+                    color: isDarkMode ? 'black' : 'white'
                   }
                 }}
               >
@@ -99,15 +98,13 @@ const Navbar = () => {
           <div className="md:hidden">
             <motion.button
               ref={buttonRef}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 rounded-md"
               style={{
-                backgroundColor: isDarkMode ? 'transparent' : 'var(--hover-light)',
-                color: isDarkMode ? 'var(--primary-dark)' : 'black',
+                backgroundColor: isDarkMode ? 'transparent' : 'rgba(192, 197, 204, 0.8)',
+                color: isDarkMode ? 'white' : 'black',
                 ':hover': {
-                  backgroundColor: isDarkMode ? 'transparent' : '#c0c5cc',
+                  backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.3)' : 'rgba(192, 197, 204, 0.5)',
                   color: isDarkMode ? 'var(--accent-purple-end)' : 'black'
                 }
               }}
@@ -131,9 +128,9 @@ const Navbar = () => {
       {isMenuOpen && (
         <motion.div
           ref={menuRef}
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, scaleY: 0, transformOrigin: 'top' }}
+          animate={{ opacity: 1, scaleY: 1, transformOrigin: 'top' }}
+          exit={{ opacity: 0, scaleY: 0, transformOrigin: 'top' }}
           transition={{ duration: 0.3 }}
           className={`md:hidden fixed top-16 left-0 right-0 shadow-lg`}
           style={{
@@ -149,10 +146,10 @@ const Navbar = () => {
                 onClick={() => setIsMenuOpen(false)}
                 className="relative block px-3 py-2 rounded-md text-base font-medium"
                 style={{
-                  color: isDarkMode ? 'var(--primary-dark)' : 'var(--primary-light)',
-                  opacity: 0.7,
-                  ':hover': { color: 'var(--accent-purple-end)', opacity: 1 }
-                }}
+                  color: isDarkMode ? 'var(--text-light)' : 'var(--text-dark)',
+                  opacity: isDarkMode ? 0.85 : 0.9,
+                   ':hover': { color: isDarkMode ? 'var(--text-light)' : 'var(--text-dark)', opacity: 1 }
+                 }}
               >
                 {item || 'Home'}
                 <AnimatePresence>
@@ -179,11 +176,11 @@ const Navbar = () => {
               }}
               className="w-full text-left px-3 py-2 rounded-md text-base font-medium"
               style={{
-                backgroundColor: isDarkMode ? 'white' : 'black',
-                color: isDarkMode ? 'var(--primary-light)' : 'white',
+                backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                color: isDarkMode ? 'black' : 'white',
                 ':hover': {
-                  backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)'
-                }
+                    backgroundColor: isDarkMode ? 'white' : 'black',
+                    color: isDarkMode ? 'white' : 'black'                 }
               }}
             >
               {isDarkMode ? 'Light Mode' : 'Dark Mode'}
@@ -195,4 +192,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default memo(Navbar);

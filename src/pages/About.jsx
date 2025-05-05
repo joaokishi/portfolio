@@ -39,25 +39,6 @@ const About = () => {
   return (
     <div className="space-y-8 md:space-y-12 relative pt-24 md:pt-28 pb-8 md:pb-12 w-full">
       {/* About Me Section */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="p-4 sm:p-6 md:p-8 rounded-lg w-full"
-        style={{
-          backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.75)' : 'rgba(202, 209, 216, 0.75)',
-          backdropFilter: 'blur(8px)',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-        }}
-      >
-        <h1 className={`text-5xl font-bold mb-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>About Me</h1>
-        <GradientLine className="mb-6" width="w-24" />
-        <p className={`text-xl ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
-          I'm a data scientist looking to expand my skills in the field. Currently, I'm in search of a new career opportunity,
-          to be able to show my skills and learn new ones. With a background in computer science and a passion for data,
-          I transform complex datasets into actionable insights.
-        </p>
-      </motion.section>
 
       {/* Education & Courses Section */}
       <motion.section

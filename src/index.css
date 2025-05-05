@@ -21,7 +21,7 @@
   }
 
   .card {
-    @apply bg-hover rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow;
+    @apply bg-[--hover-light] dark:bg-[--hover-dark] rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow;
   }
 }
 
