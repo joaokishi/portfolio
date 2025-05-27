@@ -1,4 +1,4 @@
-import { memo, lazy, Suspense, forwardRef } from 'react';
+import { memo, lazy, Suspense, forwardRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   Card,
@@ -17,21 +17,31 @@ const LazyCardMedia = lazy(() => import('./LazyCardMedia')); // Lazy load the La
 // ProjectCard component, wrapped in forwardRef for ref access
 const ProjectCard = forwardRef(({ project }, ref) => {
   const { isDarkMode } = useTheme(); // Get the current theme mode
+  const [hovered, setHovered] = useState(false); // Add state for hover
+
   //Card style
   const cardStyle = {
     backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.9)' : 'rgba(255, 255, 255, 0.9)',
-    // backdropFilter: 'blur(8px)', // Removed for performance testing
     borderRadius: '12px',
     overflow: 'hidden',
     transition: 'all 0.3s ease',
     height: '100%',
      border: '1px solid',
     borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
-     boxShadow: '0 10px 15px -3px rgba(95, 0, 107, 0.3), 0 4px 6px -4px rgba(95, 0, 107, 0.2)'
+     boxShadow: hovered // Apply shadow based on hover state
+        ? '0 15px 25px -5px rgba(95, 0, 107, 0.5), 0 10px 10px -5px rgba(95, 0, 107, 0.3)'
+        : '0 10px 15px -3px rgba(95, 0, 107, 0.3), 0 4px 6px -4px rgba(95, 0, 107, 0.2)'
   };
 
   return (
-    <div className="h-full" ref={ref}>
+    <motion.div
+      className="h-full"
+      ref={ref}
+      whileHover={{ y: -5 }} // Added lift animation on hover
+      transition={{ duration: 0.2 }} // Added transition for the hover animation
+      onMouseEnter={() => setHovered(true)} // Set hovered to true on mouse enter
+      onMouseLeave={() => setHovered(false)} // Set hovered to false on mouse leave
+    >
       <Card
         className="h-full flex flex-col shadow-lg"
         sx={cardStyle}
@@ -44,11 +54,16 @@ const ProjectCard = forwardRef(({ project }, ref) => {
             sx={{
               height: 400,
               objectFit: 'cover',
-              borderBottom: '2px solid',
-              borderImage: 'var(--gradient-purple) 1'
+              // Removed border styles from here
             }}
         />
       </Suspense>
+      {/* Added dedicated div for the gradient line */}
+      <div style={{
+          height: '4px', // Height of the gradient line
+          background: 'var(--gradient-purple)',
+          width: '100%',
+        }} />
         <CardContent sx={{ flexGrow: 0, p: 1.5, pb: 0 }}>
           <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', color: isDarkMode ? '#fff' : '#111', mb: 0.5, fontSize: '1.5rem' }}>
             {project.title}
@@ -94,7 +109,7 @@ const ProjectCard = forwardRef(({ project }, ref) => {
           </Button>
         </CardActions>
       </Card>
-    </div>
+    </motion.div>
   );
 });
 

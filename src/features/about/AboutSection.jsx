@@ -3,6 +3,7 @@ import { Typography, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 import { GradientLine } from '../../components/ui';
+import { memo } from 'react';
 
 const skills = [
   { name: 'Python' },
@@ -25,7 +26,7 @@ const AboutSection = ({ scrollToSection }) => {
       className="p-4 sm:p-6 md:p-8 rounded-lg w-full"
       style={{
         backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.75)' : 'rgba(202, 209, 216, 0.75)',
-        backdropFilter: 'blur(8px)',
+        // backdropFilter: 'blur(8px)',
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
       }}
     >
@@ -96,5 +97,4 @@ const AboutSection = ({ scrollToSection }) => {
   );
 };
 
-export default AboutSection;
-
+export default memo(AboutSection);

@@ -83,4 +83,4 @@ const WelcomeSection = ({ scrollToSection }) => {
   );
 };
 
-export default WelcomeSection;
+export default memo(WelcomeSection); // Wrapped with memo

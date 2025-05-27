@@ -42,11 +42,11 @@ const SmallProjectCard = memo(({ project, currentIndex }) => {
       >
         <CardMedia
           component="img"
-          height="140"
+          height="200" // Increased image height
           image={project.images[currentIndex % project.images.length]}
           alt={project.title}
           sx={{
-            height: 140,
+            height: 200, // Increased image height
             objectFit: 'cover',
             borderBottom: '2px solid',
             borderImage: 'var(--gradient-purple) 1'
