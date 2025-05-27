@@ -28,7 +28,7 @@ const SmallProjectCard = memo(({ project, currentIndex }) => {
         className="h-full flex flex-col shadow-lg"
         sx={{
           backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.9)' : 'rgba(255, 255, 255, 0.9)',
-          backdropFilter: 'blur(8px)',
+          // backdropFilter: 'blur(8px)', // Removed for performance testing
           borderRadius: '12px',
           overflow: 'hidden',
           transition: 'all 0.3s ease',

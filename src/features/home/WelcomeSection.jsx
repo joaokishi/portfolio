@@ -37,7 +37,7 @@ const WelcomeSection = ({ scrollToSection }) => {
       className="flex flex-col items-center justify-center min-h-[85vh] p-4 sm:p-6 md:p-8 rounded-lg w-full"
       style={{
         backgroundColor: isDarkMode ? 'rgba(8, 7, 6, 0.75)' : 'rgba(202, 209, 216, 0.75)',
-        backdropFilter: 'blur(8px)',
+        // backdropFilter: 'blur(8px)', // Removed for performance testing
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
       }}
     >
